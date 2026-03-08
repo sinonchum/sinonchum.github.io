@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Defying Gravity</title>
+
+    <!-- Meta tags for SEO & Theme -->
+    <meta name="description" content="A non-traditional technologist proving that adaptation is the ultimate skill.">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Noto+Serif+SC:wght@900&family=Space+Grotesk:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS (CDN for simplicity) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        serif: ['Noto Serif SC', 'serif'],
+                    },
+                    colors: {
+                        black: '#0a0a0a',
+                        surface: '#111111',
+                        accent: '#ffffff',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -> Brutalist & Cyberpunk styles -->
+    <style>
+        body {
+            background-color: #050505;
+            color: #d4d4d4;
+            overflow-x: hidden;
+        }
+
+        /* CRT Scanline / Noise Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            opacity: 0.04;
+            z-index: 50;
+            mix-blend-mode: overlay;
+        }
+
+        /* Glitch effect utility for hover */
+        .glitch-hover:hover {
+            animation: glitch-anim 0.2s linear infinite;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                transform: translate(0)
+            }
+
+            20% {
+                transform: translate(-2px, 2px)
+            }
+
+            40% {
+                transform: translate(-2px, -2px)
+            }
+
+            60% {
+                transform: translate(2px, 2px)
+            }
+
+            80% {
+                transform: translate(2px, -2px)
+            }
+
+            100% {
+                transform: translate(0)
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #666;
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-white selection:text-black">
+    <!-- Noise Texture Overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Navigation (Minimalist) -->
+    <nav
+        class="fixed top-0 left-0 w-full p-6 z-40 mix-blend-difference flex justify-between items-center opacity-0 animate-[fadeIn_1s_ease-out_0.5s_forwards]">
+        <div class="font-mono text-xs tracking-[0.2em] uppercase cursor-pointer hover:text-white transition-colors">>>
+            SYST_INIT</div>
+        <div class="flex gap-6 font-mono text-xs uppercase tracking-widest text-gray-500">
+            <a href="#about" class="hover:text-white transition-colors focus:text-white focus:outline-none">Who</a>
+            <a href="#manifesto"
+                class="hover:text-white transition-colors focus:text-white focus:outline-none">Manifesto</a>
+        </div>
+    </nav>
+
+    <main class="min-h-screen max-w-7xl mx-auto px-6 lg:px-12 flex flex-col justify-center relative pt-32 pb-20">
+
+        <!-- Hero Section -->
+        <section id="hero" class="relative z-10 grid grid-cols-1 gap-12 pt-[10vh] pb-[15vh]">
+
+            <!-- Background massive Chinese typography (不信命) -->
+            <div
+                class="absolute top-[5%] md:-top-[10%] -left-[10%] text-[150px] md:text-[280px] lg:text-[400px] font-serif font-black leading-none text-white opacity-[0.02] select-none pointer-events-none tracking-widest whitespace-nowrap z-0 aria-hidden='true'">
+                不信命
+            </div>
+
+            <!-- Content Container -->
+            <div
+                class="relative z-10 flex flex-col items-start gap-8 opacity-0 animate-[slideUp_0.8s_ease-out_0.2s_forwards]">
+                <!-- Hero Content & Canvas Split Layout -->
+                <div class="flex flex-col lg:flex-row items-center lg:items-start justify-between w-full gap-12">
+                    <div class="flex flex-col items-start gap-8 w-full lg:w-2/3">
+                        <!-- System Badge & Name -->
+                        <div class="flex flex-wrap items-center gap-6">
+                            <div
+                                class="font-mono text-xs tracking-[0.3em] text-gray-400 border border-gray-800 px-4 py-2 uppercase bg-black/50 backdrop-blur-sm shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+                                Status: Online
+                            </div>
+                            <!-- Brutalist Signature -->
+                            <div
+                                class="font-mono text-sm sm:text-base tracking-[0.4em] text-white uppercase border-l-2 border-white pl-6 leading-none">
+                                Feiyue Simon QIN
+                            </div>
+                        </div>
+
+                        <!-- Main Headline -->
+                        <h1
+                            class="text-5xl sm:text-7xl lg:text-[7rem] font-bold uppercase tracking-tighter leading-[0.85] text-white max-w-[900px] break-words">
+                            <span class="block">Defying<br>Gravity.</span>
+                            <span
+                                class="block text-gray-600 mt-2 hover:text-white transition-colors duration-700 cursor-default">Constantly<br>Evolving.</span>
+                        </h1>
+
+                        <!-- Sub-Headline -->
+                        <div class="mt-8 flex items-stretch gap-6 group">
+                            <!-- Accent Line -->
+                            <div
+                                class="w-1.5 bg-white scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-500 delay-100">
+                            </div>
+                            <div class="w-1 bg-gray-800 absolute -left-1 opacity-50 h-full"></div>
+
+                            <p class="text-lg md:text-2xl font-mono text-gray-400 max-w-2xl leading-relaxed py-2">
+                                A non-traditional technologist proving that adaptation is the ultimate skill.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Particle Canvas Placeholder -->
+                    <div class="w-full lg:w-1/3 flex justify-center lg:justify-end relative">
+                        <!-- Explicit canvas dimensions mapped via JS or CSS based on layout -->
+                        <div id="profile-container" class="relative w-[300px] h-[400px]"
+                            style="position: relative; overflow: hidden; border-radius: 8px;">
+                            <canvas id="profile-canvas" class="w-full h-full relative z-20"></canvas>
+                            <img id="profile-hd" src="profile.jpg"
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.3s ease-out; pointer-events: none; z-index: 30;"
+                                alt="Feiyue Simon QIN">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Micro-interaction scroll indicator -->
+            <div
+                class="absolute bottom-[-10vh] left-0 font-mono text-[10px] tracking-widest text-gray-600 uppercase flex items-center gap-4 rotate-[-90deg] origin-bottom-left opacity-0 animate-[fadeIn_1s_ease-out_1s_forwards]">
+                <span>Scroll</span>
+                <div class="w-12 h-[1px] bg-gray-600 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 w-full h-full bg-white animate-[translateX_2s_ease-in-out_infinite]">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Manifesto Section -->
+        <section id="manifesto" class="relative z-10 w-full mt-24 pt-32 border-t border-gray-900 group">
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 relative">
+
+                <!-- Creative Chinese integration (不信人不可以变) -->
+                <!-- Positioning it dynamically to weave inside and around the text block -->
+                <div
+                    class="absolute -top-16 lg:-top-24 right-0 lg:-right-10 text-[80px] md:text-[140px] font-serif font-black text-white/5 select-none pointer-events-none mix-blend-screen transition-opacity duration-1000 group-hover:opacity-10">
+                    不信人不可以变
+                </div>
+
+                <!-- Section ID & Metadata -->
+                <div class="lg:col-span-3 flex lg:flex-col justify-between items-start opacity-0"
+                    style="animation: slideUp 0.8s ease-out 0.4s forwards;">
+                    <h2 class="text-xs font-mono tracking-[0.2em] text-gray-500 uppercase flex items-center gap-3">
+                        <span class="inline-block w-2- h-2 bg-white rounded-full animate-pulse-slow"></span>
+                        Process.Log
+                    </h2>
+                    <div class="hidden lg:block mt-auto font-mono text-[10px] text-gray-600 pb-2">
+                        SYS.V1.4.0 <br>
+                        AUTO_EXEC: TRUE
+                    </div>
+                </div>
+
+                <!-- Manifesto Text content -->
+                <div class="lg:col-span-9 relative opacity-0" style="animation: slideUp 0.8s ease-out 0.5s forwards;">
+                    <div
+                        class="relative z-10 bg-black/40 backdrop-blur-md p-6 sm:p-10 border-l border-white border-opacity-10 transition-all duration-500 hover:border-opacity-100">
+                        <p class="text-xl md:text-3xl font-sans font-light leading-snug md:leading-tight text-gray-300">
+                            I don't believe in predetermined career paths. I believe people can <strong
+                                class="bg-white text-black font-mono px-2 py-1 mx-1 text-[0.85em] uppercase hover:bg-black hover:text-white border border-white transition-colors duration-300 shadow-[0_0_10px_rgba(255,255,255,0.2)]">rewrite
+                                their source code</strong>.
+                        </p>
+                        <p
+                            class="text-xl md:text-3xl font-sans font-light leading-snug md:leading-tight text-gray-300 mt-6">
+                            My background isn't a straight line, but a matrix of connected dots. I build things
+                            step-by-step to prove I am not just a dilettante, but a <strong
+                                class="text-white hover:underline decoration-2 underline-offset-8">T-shaped problem
+                                solver</strong>.
+                        </p>
+
+                        <!-- Terminal-like action prompt -->
+                        <div class="mt-16 flex flex-col sm:flex-row gap-6 font-mono">
+                            <button
+                                class="bg-white text-black px-8 py-4 text-sm font-bold uppercase tracking-wider relative overflow-hidden group/btn hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300">
+                                <span class="relative z-10">Decrypt_Skills()</span>
+                                <div
+                                    class="absolute inset-0 bg-gray-200 transform translate-y-[100%] group-hover/btn:translate-y-0 transition-transform duration-300 ease-out">
+                                </div>
+                            </button>
+
+                            <button
+                                class="border border-gray-700 text-gray-400 px-8 py-4 text-sm font-bold uppercase tracking-wider hover:border-white hover:text-white transition-all duration-300 flex items-center gap-3">
+                                <span class="w-2 h-2 bg-current opacity-70"></span> Initializing...
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Proof of Depth: PatentFlow Section -->
+        <section id="proof-of-depth" class="relative z-10 w-full mt-32 pt-24 border-t border-gray-900 group">
+
+            <!-- Section Header -->
+            <div class="mb-16 flex flex-col md:flex-row md:items-end justify-between border-b border-gray-800 pb-8 opacity-0"
+                style="animation: slideUp 0.8s ease-out 0.6s forwards;">
+                <div>
+                    <h2 class="text-xs font-mono tracking-[0.3em] text-gray-500 uppercase flex items-center gap-3 mb-4">
+                        <span class="inline-block w-2 h-2 bg-gray-500 rounded-none"></span>
+                        Case_Study.01
+                    </h2>
+                    <h3
+                        class="text-4xl md:text-5xl lg:text-6xl font-sans font-bold uppercase tracking-tighter text-white">
+                        PROOF OF DEPTH:<br>
+                        <span class="text-gray-600">PATENTFLOW</span>
+                    </h3>
+                </div>
+                <div
+                    class="mt-8 md:mt-0 font-mono text-[10px] md:text-xs text-gray-500 text-left md:text-right uppercase tracking-widest leading-loose">
+                    <p><span class="text-gray-700">STATUS:</span> <span class="text-white">DEPLOYED</span></p>
+                    <p><span class="text-gray-700">ARCH:</span> STABLE</p>
+                </div>
+            </div>
+
+            <!-- Content Grid Container -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 relative opacity-0"
+                style="animation: slideUp 0.8s ease-out 0.7s forwards;">
+
+                <!-- Left Details (The Breakdown) -->
+                <div class="lg:col-span-4 flex flex-col gap-12 font-mono text-sm relative z-10">
+
+                    <!-- Item 1: The Friction -->
+                    <div
+                        class="relative pl-6 border-l border-gray-800 hover:border-gray-400 transition-colors duration-500 group/item">
+                        <div
+                            class="absolute -left-[1px] top-0 w-[2px] h-0 bg-white group-hover/item:h-full transition-all duration-500 ease-out">
+                        </div>
+                        <h4 class="text-gray-200 font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                            <span class="text-[10px] text-gray-600">[01]</span> The Friction
+                        </h4>
+                        <p class="text-gray-400 leading-relaxed bg-[#0a0a0a] p-4 border border-gray-900 shadow-inner">
+                            "Navigating patent logic is traditionally complex and opaque."
+                        </p>
+                    </div>
+
+                    <!-- Item 2: The Architecture -->
+                    <div
+                        class="relative pl-6 border-l border-gray-800 hover:border-gray-400 transition-colors duration-500 group/item">
+                        <div
+                            class="absolute -left-[1px] top-0 w-[2px] h-0 bg-white group-hover/item:h-full transition-all duration-500 ease-out">
+                        </div>
+                        <h4 class="text-gray-200 font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                            <span class="text-[10px] text-gray-600">[02]</span> The Architecture
+                        </h4>
+                        <p class="text-gray-400 leading-relaxed bg-[#0a0a0a] p-4 border border-gray-900 shadow-inner">
+                            Built step-by-step from scratch.<br><br>
+                            A structured, stage-by-stage system built to streamline and map out patent workflows.
+                        </p>
+                    </div>
+
+                    <!-- Item 3: The Impact -->
+                    <div
+                        class="relative pl-6 border-l border-gray-800 hover:border-gray-400 transition-colors duration-500 group/item">
+                        <div
+                            class="absolute -left-[1px] top-0 w-[2px] h-0 bg-white group-hover/item:h-full transition-all duration-500 ease-out">
+                        </div>
+                        <h4 class="text-white font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                            <span class="text-[10px] text-gray-600">[03]</span> The Impact
+                        </h4>
+                        <p
+                            class="text-gray-300 leading-relaxed bg-white/5 p-4 border border-gray-700 shadow-[0_0_15px_rgba(255,255,255,0.05)] text-white">
+                            "Turning abstract legal/technical logic into a tangible, functioning system."
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Right Visual Element (Code/Architecture Block) -->
+                <div class="lg:col-span-8 relative z-10 group/code">
+                    <div
+                        class="bg-[#050505] border border-gray-800 p-1 relative overflow-hidden transition-all duration-500 group-hover/code:border-gray-600 shadow-2xl h-full">
+
+                        <!-- IDE Top Bar -->
+                        <div class="flex items-center justify-between border-b border-gray-800 px-4 py-3 bg-[#0a0a0a]">
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 rounded-full bg-gray-800"></div>
+                                <div class="w-3 h-3 rounded-full bg-gray-800"></div>
+                                <div class="w-3 h-3 rounded-full bg-gray-800"></div>
+                            </div>
+                            <div class="font-mono text-[10px] text-gray-500 tracking-widest flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-green-500/50 animate-pulse"></span>
+                                src/core/patent_flow.py
+                            </div>
+                        </div>
+
+                        <!-- Code Snippet -->
+                        <div
+                            class="p-6 md:p-8 overflow-x-auto text-xs md:text-sm font-mono leading-loose relative opacity-80 group-hover/code:opacity-100 transition-opacity duration-500">
+                            <!-- Syntax Highlights matching dark themes (like OneDark/Atom) -->
+                            <pre><code>
+<span class="text-gray-500 italic"># ==========================================</span>
+<span class="text-gray-500 italic"># STAGE 1: ABSTRACT LOGIC PARSER</span>
+<span class="text-gray-500 italic"># ==========================================</span>
+<span class="text-[#c678dd]">class</span> <span class="text-[#e5c07b]">PatentFlowArchitecture</span>:
+    <span class="text-[#c678dd]">def</span> <span class="text-[#61afef]">__init__</span>(<span class="text-[#d19a66]">self</span>):
+        <span class="text-[#d19a66]">self</span>.state <span class="text-[#56b6c2]">=</span> <span class="text-[#98c379]">'INITIALIZED'</span>
+        <span class="text-[#d19a66]">self</span>.logic_nodes <span class="text-[#56b6c2]">=</span> []
+        <span class="text-[#d19a66]">self</span>.complexity <span class="text-[#56b6c2]">=</span> <span class="text-[#d19a66]">float</span>(<span class="text-[#98c379]">'inf'</span>) <span class="text-gray-500 italic"># Traditional opaque logic</span>
+        
+    <span class="text-[#c678dd]">def</span> <span class="text-[#61afef]">demystify_workflow</span>(<span class="text-[#d19a66]">self</span>, raw_patent_data):
+        <span class="text-[#5c6370] italic">"""</span>
+<span class="text-[#5c6370] italic">        Translates opaque legal/technical requirements into</span>
+<span class="text-[#5c6370] italic">        a streamlined, executable stage-by-stage pipeline.</span>
+<span class="text-[#5c6370] italic">        """</span>
+        <span class="text-[#c678dd]">try</span>:
+            <span class="text-gray-500 italic"># Deconstruct the friction</span>
+            structured_stages <span class="text-[#56b6c2]">=</span> <span class="text-[#d19a66]">self</span>._parse_logic(raw_patent_data)
+            
+            <span class="text-gray-500 italic"># Build step-by-step tangible system</span>
+            tangible_system <span class="text-[#56b6c2]">=</span> <span class="text-[#d19a66]">self</span>._compile_stages(structured_stages)
+            
+            <span class="text-[#d19a66]">self</span>.complexity <span class="text-[#56b6c2]">=</span> <span class="text-[#d19a66]">0</span> <span class="text-gray-500 italic"># Logic organized.</span>
+            <span class="text-[#c678dd]">return</span> tangible_system
+            
+        <span class="text-[#c678dd]">except</span> <span class="text-[#e5c07b]">OpaqueLogicException</span> <span class="text-[#c678dd]">as</span> err:
+            <span class="text-[#e06c75]">logger</span>.error(<span class="text-[#98c379]">'System requires deeper dive.'</span>)
+            <span class="text-[#c678dd]">raise</span>
+            
+<span class="text-gray-500 italic"># Execute core logic</span>
+<span class="text-[#c678dd]">if</span> __name__ <span class="text-[#56b6c2]">==</span> <span class="text-[#98c379]">'__main__'</span>:
+    engine <span class="text-[#56b6c2]">=</span> PatentFlowArchitecture()
+    system <span class="text-[#56b6c2]">=</span> engine.demystify_workflow(abstract_law)
+    <span class="text-[#e06c75]">print</span>(<span class="text-[#98c379]">'System mapped. Ready for scale.'</span>)
+                            </code></pre>
+
+                            <!-- Vignette overlay to fade out right side on smaller screens -->
+                            <div
+                                class="absolute top-0 right-0 w-8 md:w-24 h-full bg-gradient-to-l from-[#050505] to-transparent pointer-events-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Decorative technical dots -->
+                    <div
+                        class="absolute -bottom-4 -right-4 w-24 h-24 grid grid-cols-4 gap-2 opacity-20 pointer-events-none z-0">
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                        <div class="w-1 h-1 bg-white rounded-full"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- The Evolution Timeline Section -->
+        <section id="evolution" class="relative z-10 w-full mt-32 pt-24 border-t border-gray-900 group">
+
+            <!-- Section Header -->
+            <div class="mb-16 flex flex-col md:flex-row md:items-end justify-between border-b border-gray-800 pb-8 opacity-0"
+                style="animation: slideUp 0.8s ease-out 0.8s forwards;">
+                <div>
+                    <h2 class="text-xs font-mono tracking-[0.3em] text-gray-500 uppercase flex items-center gap-3 mb-4">
+                        <span class="inline-block w-2 h-2 bg-gray-500 rounded-none"></span>
+                        Timeline.Log
+                    </h2>
+                    <h3
+                        class="text-4xl md:text-5xl lg:text-6xl font-sans font-bold uppercase tracking-tighter text-white">
+                        THE EVOLUTION
+                    </h3>
+                </div>
+            </div>
+
+            <!-- Timeline Container -->
+            <div class="relative w-full max-w-4xl mx-auto opacity-0"
+                style="animation: slideUp 0.8s ease-out 0.9s forwards;">
+                <!-- Vertical Line -->
+                <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-[1px] bg-gray-800 md:-translate-x-1/2"></div>
+
+                <!-- Timeline Items -->
+                <div class="flex flex-col gap-12 relative z-10 font-mono">
+
+                    <!-- Item 1: The Blueprint -->
+                    <div class="relative flex flex-col md:flex-row items-start md:justify-between w-full group/time">
+                        <div
+                            class="hidden md:block w-5/12 text-right pr-8 py-2 text-gray-500 text-xs tracking-widest uppercase">
+                            [ 2013 - 2017 ]<br>
+                            <span class="text-[10px] text-gray-700">The Blueprint</span>
+                        </div>
+                        <div
+                            class="absolute left-[-4px] md:left-1/2 md:-ml-[4px] top-3 w-2 h-2 bg-gray-800 rounded-none group-hover/time:bg-white group-hover/time:shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all duration-300">
+                        </div>
+                        <div class="w-full md:w-5/12 pl-8 md:pl-8 text-left">
+                            <div class="md:hidden text-gray-500 text-xs tracking-widest uppercase mb-2">
+                                [ 2013 - 2017 ] - The Blueprint
+                            </div>
+                            <h4 class="text-base md:text-lg text-white font-bold tracking-wider uppercase mb-1">
+                                B.A. in Logistics &amp; Minor in Mobile Information Engineering
+                            </h4>
+                            <div class="text-[10px] text-gray-600 uppercase tracking-widest mb-3">Sun Yat-sen
+                                University, Guangzhou, China</div>
+                            <p
+                                class="text-sm text-gray-400 leading-relaxed bg-[#0a0a0a] border border-gray-900 p-4 shadow-inner hover:border-gray-600 transition-colors duration-300">
+                                Mastering the physical flow of complex systems while building a technical bedrock in
+                                code. This dual-focus planted the seed for my T-shaped architecture.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: The Strategic Paradigm -->
+                    <div class="relative flex flex-col md:flex-row items-start md:justify-between w-full group/time">
+                        <div
+                            class="hidden md:block w-5/12 text-right pr-8 py-2 text-gray-500 text-xs tracking-widest uppercase">
+                            [ 2017 - 2020 ]<br>
+                            <span class="text-[10px] text-gray-700">The Strategic Paradigm</span>
+                        </div>
+                        <div
+                            class="absolute left-[-4px] md:left-1/2 md:-ml-[4px] top-3 w-2 h-2 bg-gray-800 rounded-none group-hover/time:bg-white group-hover/time:shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all duration-300">
+                        </div>
+                        <div class="w-full md:w-5/12 pl-8 md:pl-8 text-left">
+                            <div class="md:hidden text-gray-500 text-xs tracking-widest uppercase mb-2">
+                                [ 2017 - 2020 ] - The Strategic Paradigm
+                            </div>
+                            <h4 class="text-base md:text-lg text-white font-bold tracking-wider uppercase mb-1">
+                                Master in Management
+                            </h4>
+                            <div class="text-[10px] text-gray-600 uppercase tracking-widest mb-3">HEC Paris, Paris,
+                                France</div>
+                            <p
+                                class="text-sm text-gray-400 leading-relaxed bg-[#0a0a0a] border border-gray-900 p-4 shadow-inner hover:border-gray-600 transition-colors duration-300">
+                                Elevating from system mechanics to high-level business strategy at a top-tier European
+                                business school. Learning how to translate raw data and tech into tangible market value
+                                and organizational leadership.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3: The Synthesis -->
+                    <div class="relative flex flex-col md:flex-row items-start md:justify-between w-full group/time">
+                        <div
+                            class="hidden md:block w-5/12 text-right pr-8 py-2 text-gray-500 text-xs tracking-widest uppercase">
+                            [ 2020 - Present ]<br>
+                            <span class="text-[10px] text-gray-700">The Synthesis</span>
+                        </div>
+                        <div
+                            class="absolute left-[-4px] md:left-1/2 md:-ml-[4px] top-3 w-2 h-2 bg-gray-800 rounded-none group-hover/time:bg-white group-hover/time:shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all duration-300 animate-pulse">
+                        </div>
+                        <div class="w-full md:w-5/12 pl-8 md:pl-8 text-left">
+                            <div class="md:hidden text-gray-500 text-xs tracking-widest uppercase mb-2">
+                                [ 2020 - Present ] - The Synthesis
+                            </div>
+                            <h4 class="text-base md:text-lg text-white font-bold tracking-wider uppercase mb-1">
+                                The Unconventional Builder
+                            </h4>
+                            <p
+                                class="text-sm text-gray-300 leading-relaxed bg-white/5 border border-gray-700 p-4 shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:border-white transition-colors duration-300">
+                                Refusing to be boxed into a traditional management consultant or corporate role. I merge
+                                business acumen with hardcore execution—building complex tools like PatentFlow and
+                                proving that I can architect solutions from 0 to 1.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="w-full border-t border-gray-900 bg-[#050505] relative z-20 py-12 px-6 lg:px-12 mt-20">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <p
+                    class="font-mono text-sm md:text-base text-white uppercase tracking-widest font-bold max-w-2xl leading-relaxed">
+                    Ready to bridge the gap between business strategy and technical execution.</p>
+            </div>
+
+            <div class="flex items-center gap-6 font-mono text-xs text-gray-500 uppercase tracking-widest">
+                <a href="#" class="hover:text-white transition-colors focus:text-white focus:outline-none">GitHub</a>
+                <a href="#" class="hover:text-white transition-colors focus:text-white focus:outline-none">LinkedIn</a>
+                <a href="#" class="hover:text-white transition-colors focus:text-white focus:outline-none">Email</a>
+            </div>
+        </div>
+
+        <div
+            class="max-w-7xl mx-auto mt-12 pt-8 border-t border-gray-900 text-center md:text-left flex flex-col md:flex-row justify-between items-center font-mono text-[10px] text-gray-600 uppercase tracking-[0.2em]">
+            <span>Defying gravity. &copy; 2026</span>
+            <span class="mt-4 md:mt-0 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-gray-600 rounded-full animate-pulse-slow"></span>
+                SYS.HALT
+            </span>
+        </div>
+    </footer>
+
+    <!-- Decorative bottom grid line -->
+    <div class="fixed bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gray-800 to-transparent">
+    </div>
+
+    <script>
+        // Simple vanilla JS interactions
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add subtle mouse-following parallax to the massive text background
+            const bgText = document.querySelector('.absolute.font-serif.text-white');
+
+            document.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 20;
+                const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+                if (bgText) {
+                    bgText.style.transform = `translate(${x}px, ${y}px)`;
+                }
+            });
+
+            // Intersection Observer for fade-in elements on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100');
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
